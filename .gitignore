@@ -22,3 +22,33 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Testing and Coverage Enviromnments
+/nyc_output         # Directorio de resultados temporales de coverage
+/coverage           # Reportes finales de coverage (generados por Vitest/Cypress/Istanbul)
+/.nyc_output        # Alternativa para resultados de coverage
+
+# Cypress
+/cypress/screenshots  # Capturas de pantalla de pruebas fallidas
+/cypress/videos       # Videos de ejecución de pruebas
+/cypress/downloads    # Archivos descargados durante pruebas
+
+# Dev environment
+.env.local          # Variables de entorno locales
+.env.*.local        # Variables específicas de entorno
+*.env               # Cualquier archivo .env (excepto .env.example)
+
+# Vite
+.cache/             # Cache de Vite
+.temp/              # Archivos temporales de Vite
+
+# OS
+Thumbs.db           # Archivo de caché de Windows
+ehthumbs.db         # Otra variante de Windows
+Desktop.ini        # Configuración de carpetas en Windows
+
+# IDE/Editors
+.idea/              # JetBrains IDE
+.vscode/            # VS Code (excepto extensions.json que ya manejas)
+*.swp               # Archivos temporales de Vim/Neovim
+*.swo               # Variante de archivos temporales de Vim

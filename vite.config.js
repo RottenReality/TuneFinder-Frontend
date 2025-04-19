@@ -8,4 +8,9 @@ export default defineConfig({
     react(),
     istanbul({ include: 'src/*' }),
   ],
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./src/tests/setup.js"
+  },
 });
