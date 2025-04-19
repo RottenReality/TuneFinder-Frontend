@@ -24,7 +24,7 @@ const Callback = () => {
         body.append('client_id', '5c2e53056c7e4287bf2c92c8edf7a6ee');
         body.append('grant_type', 'authorization_code');
         body.append('code', code);
-        body.append('redirect_uri', 'http://localhost:3000/callback');
+        body.append('redirect_uri', 'http://localhost:5173/callback');
         body.append('code_verifier', codeVerifier);
 
         const response = await axios.post('https://accounts.spotify.com/api/token', body, {
