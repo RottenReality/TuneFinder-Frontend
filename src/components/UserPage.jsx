@@ -59,7 +59,7 @@ const UserPage = () => {
     if (!following) fetchFollowed()
     if (!playing) fetchCurrentlyPlaying()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playlists])
+  }, [playlists, following, playing])
 
   if (!token || !following || !playing || !playlists) return null
 

@@ -24,8 +24,8 @@ dist-ssr
 *.sw?
 
 # Testing and Coverage Enviromnments
-/nyc_output         # Directorio de resultados temporales de coverage
-/coverage           # Reportes finales de coverage (generados por Vitest/Cypress/Istanbul)
+.nyc_output         # Directorio de resultados temporales de coverage
+coverage           # Reportes finales de coverage (generados por Vitest/Cypress/Istanbul)
 /.nyc_output        # Alternativa para resultados de coverage
 
 # Cypress
