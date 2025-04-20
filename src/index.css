@@ -356,24 +356,6 @@ a:hover {
   font-weight: 900;
 }
 
-.favButton {
-  width: min-content;
-  height: min-content;
-  float: right;
-  margin-right: 15%;
-}
-.favButton button {
-  width: 100px;
-  height: 100px;
-  border: none;
-  background-color: transparent;
-}
-
-.favButton img {
-  width: 80%;
-  height: 40%;
-}
-
 .title {
   font-size: 50px;
   margin-top: 50px;

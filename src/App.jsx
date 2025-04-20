@@ -11,7 +11,6 @@ import SearchArtist from './components/SearchArtist';
 import SearchGenre from './components/SearchGenre';
 import ArtistPage from './components/ArtistPage';
 import UserPage from './components/UserPage';
-import UserFavorite from './components/UserFavorite';
 import Callback from './components/Callback';
 
 async function getUser(token, dispatch) {
@@ -56,7 +55,6 @@ const App = () => {
         <Route path="/search-artist" element={<SearchArtist />} />
         <Route path="/search-genre" element={<SearchGenre />} />
         <Route path="/user" element={<UserPage />} />
-        <Route path="/favorite" element={<UserFavorite />} />
         <Route path="/" element={<></>} />
       </Routes>
     </Router>
