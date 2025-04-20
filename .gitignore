@@ -23,11 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Testing and Coverage Enviromnments
-.nyc_output         # Directorio de resultados temporales de coverage
-coverage           # Reportes finales de coverage (generados por Vitest/Cypress/Istanbul)
-/.nyc_output        # Alternativa para resultados de coverage
-
 # Cypress
 /cypress/screenshots  # Capturas de pantalla de pruebas fallidas
 /cypress/videos       # Videos de ejecución de pruebas
@@ -52,3 +47,5 @@ Desktop.ini        # Configuración de carpetas en Windows
 .vscode/            # VS Code (excepto extensions.json que ya manejas)
 *.swp               # Archivos temporales de Vim/Neovim
 *.swo               # Variante de archivos temporales de Vim
+.nyc_output
+coverage
