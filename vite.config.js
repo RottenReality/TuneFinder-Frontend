@@ -10,6 +10,7 @@ export default defineConfig({
       exclude: ["**/Callback.jsx"],
       extension: [".js", ".ts", ".jsx", ".tsx"],
       cypress: true,
+      requireEnv: false
     }),
   ],
   test: {

@@ -10,6 +10,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "cy:open": "vite dev & cypress open",
+    "cy:coverage": "start-server-and-test dev http://localhost:5173 'cypress run && nyc report --reporter=lcov'",
     "lint": "eslint . --ext .js,.jsx",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.14.0",
     "@eslint/js": "^9.22.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -45,6 +47,7 @@
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "redux-mock-store": "^1.5.5",
+    "start-server-and-test": "^2.0.11",
     "vite": "^6.3.1",
     "vite-plugin-istanbul": "^7.0.0",
     "vitest": "^3.1.1"
