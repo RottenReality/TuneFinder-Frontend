@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import User from "../images/User.png";
 import Note from "../images/Note.png";
 import PropTypes from "prop-types";

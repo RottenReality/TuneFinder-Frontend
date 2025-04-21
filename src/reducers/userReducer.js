@@ -1,11 +1,10 @@
 const userReducer = (state = null, action) => {
-  switch (action.type) {
-    case "SET_USER":
-      return action.data;
-    default:
-      return state;
+  if (action.type === "SET_USER") {
+    return action.data;
   }
+  return state;
 };
+
 
 export const setUser = (user) => {
   return async (dispatch) => {

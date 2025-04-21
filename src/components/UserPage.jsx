@@ -90,7 +90,7 @@ const UserPage = () => {
           {playlists.items.map((playlist) => (
             <div className="userPlaylist" key={playlist.id}>
               <center>
-                {playlist.images.length > 0 ? (
+                {playlist.images?.length > 0 ? (
                   <img src={playlist.images[0].url} alt="Album logo" />
                 ) : (
                   <img src={Note} alt="Album logo" />
