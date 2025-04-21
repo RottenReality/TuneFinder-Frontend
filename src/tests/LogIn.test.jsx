@@ -1,24 +1,24 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import LogIn from '../components/LogIn';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import LogIn from "../components/LogIn";
 
-describe('LogIn Component', () => {
+describe("LogIn Component", () => {
   const cryptoMock = {
     getRandomValues: vi.fn(),
     subtle: {
-      digest: vi.fn()
-    }
+      digest: vi.fn(),
+    },
   };
 
   beforeEach(() => {
-    vi.stubGlobal('localStorage', {
+    vi.stubGlobal("localStorage", {
       setItem: vi.fn(),
       getItem: vi.fn(),
       removeItem: vi.fn(),
       clear: vi.fn(),
     });
 
-    vi.stubGlobal('crypto', cryptoMock);
+    vi.stubGlobal("crypto", cryptoMock);
 
     cryptoMock.getRandomValues.mockImplementation((array) => {
       for (let i = 0; i < array.length; i++) {
@@ -29,18 +29,23 @@ describe('LogIn Component', () => {
     cryptoMock.subtle.digest.mockResolvedValue(new Uint8Array(32).buffer);
   });
 
-  it('renders the login title and link after setup', async () => {
+  it("renders the login title and link after setup", async () => {
     render(<LogIn />);
 
-    expect(screen.getByText('Log In to Continue')).toBeInTheDocument();
+    expect(screen.getByText("Log In to Continue")).toBeInTheDocument();
 
-    const link = await screen.findByText('Login with Spotify');
+    const link = await screen.findByText("Login with Spotify");
 
     expect(link).toBeInTheDocument();
-    expect(link.tagName).toBe('A');
+    expect(link.tagName).toBe("A");
 
-    expect(link.getAttribute('href')).toMatch(/^https:\/\/accounts\.spotify\.com\/authorize\?/);
+    expect(link.getAttribute("href")).toMatch(
+      /^https:\/\/accounts\.spotify\.com\/authorize\?/,
+    );
 
-    expect(localStorage.setItem).toHaveBeenCalledWith(expect.stringContaining("code_verifier"), expect.any(String));
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      expect.stringContaining("code_verifier"),
+      expect.any(String),
+    );
   });
 });

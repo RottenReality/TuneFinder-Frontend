@@ -1,21 +1,20 @@
 const userReducer = (state = null, action) => {
-  switch(action.type) {
-    case 'SET_USER':
-      return action.data
+  switch (action.type) {
+    case "SET_USER":
+      return action.data;
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const setUser = (user) => {
-  return async dispatch => {
-    const data = user
+  return async (dispatch) => {
+    const data = user;
     dispatch({
-      type: 'SET_USER',
-      data
-    })
-  }
-}
+      type: "SET_USER",
+      data,
+    });
+  };
+};
 
-
-export default userReducer
+export default userReducer;

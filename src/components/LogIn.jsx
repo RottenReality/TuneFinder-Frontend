@@ -7,17 +7,19 @@ const LogIn = () => {
     const generateCodeVerifier = () => {
       const array = new Uint32Array(56);
       window.crypto.getRandomValues(array);
-      return Array.from(array, dec => ('0' + dec.toString(16)).slice(-2)).join('');
+      return Array.from(array, (dec) =>
+        ("0" + dec.toString(16)).slice(-2),
+      ).join("");
     };
 
     const generateCodeChallenge = async (verifier) => {
       const encoder = new TextEncoder();
       const data = encoder.encode(verifier);
-      const digest = await window.crypto.subtle.digest('SHA-256', data);
+      const digest = await window.crypto.subtle.digest("SHA-256", data);
       return btoa(String.fromCharCode(...new Uint8Array(digest)))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
     };
 
     const setupLogin = async () => {
@@ -26,18 +28,20 @@ const LogIn = () => {
 
       localStorage.setItem("code_verifier", codeVerifier);
 
-      const CLIENT_ID = '5c2e53056c7e4287bf2c92c8edf7a6ee';
+      const CLIENT_ID = "5c2e53056c7e4287bf2c92c8edf7a6ee";
       const REDIRECT_URI = "http://localhost:5173/callback";
-      const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-      const RESPONSE_TYPE = 'code';
-      const SCOPE = 'user-read-private playlist-read-private user-read-currently-playing user-follow-read';
+      const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+      const RESPONSE_TYPE = "code";
+      const SCOPE =
+        "user-read-private playlist-read-private user-read-currently-playing user-follow-read";
 
-      const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}` +
-                  `&response_type=${RESPONSE_TYPE}` +
-                  `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-                  `&scope=${encodeURIComponent(SCOPE)}` +
-                  `&code_challenge_method=S256` +
-                  `&code_challenge=${codeChallenge}`;
+      const url =
+        `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}` +
+        `&response_type=${RESPONSE_TYPE}` +
+        `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+        `&scope=${encodeURIComponent(SCOPE)}` +
+        `&code_challenge_method=S256` +
+        `&code_challenge=${codeChallenge}`;
 
       setLoginUrl(url);
     };
@@ -49,11 +53,7 @@ const LogIn = () => {
     <div className="login">
       <center>
         <h1>Log In to Continue</h1>
-        {loginUrl && (
-          <a href={loginUrl}>
-            Login with Spotify
-          </a>
-        )}
+        {loginUrl && <a href={loginUrl}>Login with Spotify</a>}
       </center>
     </div>
   );

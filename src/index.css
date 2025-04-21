@@ -23,20 +23,19 @@ hr {
 }
 
 #right {
-  float: right
+  float: right;
 }
 
 a {
-  
   text-decoration: none;
   color: white;
 }
 a:hover {
-  color: #1DB954
+  color: #1db954;
 }
 
 .menu button:hover {
-  color: #1DB954
+  color: #1db954;
 }
 
 .menu {
@@ -45,28 +44,26 @@ a:hover {
   padding-left: 25px;
   padding-right: 25px;
   height: 50px;
-  background-color: #0A0A0A;
+  background-color: #0a0a0a;
   margin: 0px;
 }
 .menu button {
   background: none;
   border: none;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 20px;
-  color: white
+  color: white;
 }
 
-
-
-.home, .searchPage {
-  background-color: #1A341E;
+.home,
+.searchPage {
+  background-color: #1a341e;
   min-height: 650px;
   height: max-content;
   margin: 0px 100px;
-  padding-top : 1px;
+  padding-top: 1px;
   float: center;
   color: white;
-  
 }
 .home div {
   background-color: #121212;
@@ -77,14 +74,11 @@ a:hover {
   height: 300px;
   margin: 70px;
   display: inline-block;
-  
 }
 .home button {
   height: 50px;
   width: 100px;
 }
-
-
 
 .login {
   margin-top: 175px;
@@ -95,18 +89,18 @@ a:hover {
   margin-top: 70px;
   width: 250px;
   height: 40px;
-  background-color: #1DB954;
+  background-color: #1db954;
   border-radius: 50px;
 }
 .login a {
   font-size: 18px;
 }
 .login a:hover {
-  color: white
+  color: white;
 }
 
 .search {
-  background-color: #0A0A0A;
+  background-color: #0a0a0a;
   margin: 60px;
   min-height: 650px;
   height: max-content;
@@ -117,14 +111,14 @@ a:hover {
   margin-top: 50px;
   padding-top: 23px;
   text-align: center;
-  background-color:darkgrey;
+  background-color: darkgrey;
   border: 1px solid white;
   border-radius: 15px;
   color: #121212;
   width: 400px;
   height: 70px;
   font-size: 37px;
-  font-family:Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
 .input {
   position: relative;
@@ -223,18 +217,20 @@ a:hover {
   border-radius: 30px;
 }
 .albums h2 {
-  margin-left:125px;
+  margin-left: 125px;
   margin-bottom: 10px;
   margin-top: 0;
   font-size: 30px;
 }
-.albums h3, .similarArtists h3, .userPlaylists h3 {
+.albums h3,
+.similarArtists h3,
+.userPlaylists h3 {
   margin: 0;
   margin-bottom: 30px;
   font-size: 50px;
 }
 .albums p {
-  margin-left:125px;
+  margin-left: 125px;
   opacity: 60%;
   margin-top: 0;
   margin-bottom: 50px;
@@ -260,7 +256,7 @@ a:hover {
 .similarArtists {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: inline-block;
-  
+
   padding: 125px;
   padding-top: 0;
   width: 85%;
@@ -313,7 +309,7 @@ a:hover {
 .userPlaylists {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: inline-block;
-  
+
   padding: 125px;
   padding-top: 0;
   width: 85%;
@@ -348,7 +344,7 @@ a:hover {
 .filter button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0% 5%;
-  background-color: #1DB954;
+  background-color: #1db954;
   border: none;
   border-radius: 30px;
   padding: 1%;
