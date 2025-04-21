@@ -29,9 +29,8 @@ jobs:
         run: npm ci
 
       - name: Run tests and generate coverage
-        run: npm run test:coverage
+        run: npm run cy:coverage
 
-      # Opcional: verificar archivo de cobertura generado
       - name: Show lcov.info (debug)
         run: ls -R coverage && cat coverage/lcov.info || echo "No lcov.info found"
 
