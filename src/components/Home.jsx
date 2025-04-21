@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
-const Home = (props) => {
+const Home = () => {
   const loggedIn = useSelector(state => state.token)
   if (!loggedIn) return null
 

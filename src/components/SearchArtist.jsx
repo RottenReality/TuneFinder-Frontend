@@ -74,7 +74,7 @@ const SearchArtist = () => {
           </form>
         </center>
         {filter === 'artist' && artists
-          ? <ArtistList artists={artists} />
+          ? <ArtistList artists={artists}/>
           : null}
         {filter === 'track' && tracks
           ? <TrackList tracks={tracks}/>
