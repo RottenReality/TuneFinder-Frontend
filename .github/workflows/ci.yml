@@ -31,7 +31,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests and generate coverage
-        run: npm coverage
+        run: npm run coverage
 
       - name: Run e2e tests and generate coverage
         run: npm run cy:coverage
