@@ -30,8 +30,11 @@ jobs:
       - name: Run Lint
         run: npm run lint
 
-      - name: Run tests and generate coverage
+      - name: Run unit tests and
         run: npm run test
+      
+      - name: Generate unit test coverage
+        run: npm run coverage
 
       - name: Run e2e tests and generate coverage
         run: npm run cy:coverage
