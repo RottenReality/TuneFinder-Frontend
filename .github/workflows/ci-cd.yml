@@ -199,6 +199,21 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
+      # 1. Checkout del código (para acceder a las pruebas)
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Ejecutar pruebas de aceptación contra el entorno de Staging
       - name: Run Acceptance Tests against Staging
         env:
           APP_BASE_URL: ${{ needs.deploy-cfn-staging.outputs.alb_url_staging }} # URL del ALB de Staging desde salidas
