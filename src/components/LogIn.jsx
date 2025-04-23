@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { sha256 } from "js-sha256";
 
 const LogIn = () => {
   const [loginUrl, setLoginUrl] = useState("");
@@ -13,9 +14,7 @@ const LogIn = () => {
     };
 
     const generateCodeChallenge = async (verifier) => {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(verifier);
-      const digest = await window.crypto.subtle.digest("SHA-256", data);
+      const digest = sha256.arrayBuffer(verifier);
       return btoa(String.fromCharCode(...new Uint8Array(digest)))
         .replace(/\+/g, "-")
         .replace(/\//g, "_")
