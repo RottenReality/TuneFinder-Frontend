@@ -4,7 +4,7 @@ import coverageTask from "@cypress/code-coverage/task.js";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5173",
+    baseUrl: "http://localhost:3000",
     setupNodeEvents(on, config) {
       on("file:preprocessor", vitePreprocessor());
       coverageTask(on, config);
@@ -19,6 +19,6 @@ export default defineConfig({
     },
   },
   env: {
-    VITE_API_BASE_URL: "http://localhost:5173",
+    VITE_API_BASE_URL: "http://localhost:3000",
   },
 });

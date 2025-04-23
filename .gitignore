@@ -29,9 +29,10 @@ dist-ssr
 /cypress/downloads    # Archivos descargados durante pruebas
 
 # Dev environment
+.env
 .env.local          # Variables de entorno locales
 .env.*.local        # Variables específicas de entorno
-*.env               # Cualquier archivo .env (excepto .env.example)
+*.env              # Cualquier archivo .env (excepto .env.example)
 
 # Vite
 .cache/             # Cache de Vite

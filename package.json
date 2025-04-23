@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
+    "smoke": "cypress run --spec ./cypress/e2e/home.cy.js",
     "cy:open": "vite dev & cypress open",
     "cy:coverage": "start-server-and-test dev http://localhost:5173 'cypress run && nyc report --reporter=lcov'",
     "lint": "eslint . --ext .js,.jsx",
