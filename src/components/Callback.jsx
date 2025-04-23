@@ -9,6 +9,7 @@ const Callback = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
+  const redirect_uri = import.meta.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -25,7 +26,7 @@ const Callback = () => {
         body.append("client_id", import.meta.env.VITE_SPOTIFY_TOKEN);
         body.append("grant_type", "authorization_code");
         body.append("code", code);
-        body.append("redirect_uri", "http://localhost:5173/callback");
+        body.append("redirect_uri", redirect_uri);
         body.append("code_verifier", codeVerifier);
 
         const response = await axios.post(

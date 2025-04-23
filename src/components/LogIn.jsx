@@ -3,6 +3,7 @@ import { sha256 } from "js-sha256";
 
 const LogIn = () => {
   const [loginUrl, setLoginUrl] = useState("");
+  const redirect_uri = import.meta.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
 
   useEffect(() => {
     const generateCodeVerifier = () => {
@@ -28,7 +29,7 @@ const LogIn = () => {
       localStorage.setItem("code_verifier", codeVerifier);
 
       const CLIENT_ID = import.meta.env.VITE_SPOTIFY_TOKEN;
-      const REDIRECT_URI = "http://localhost:5173/callback";
+      const REDIRECT_URI = redirect_uri;
       const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
       const RESPONSE_TYPE = "code";
       const SCOPE =
