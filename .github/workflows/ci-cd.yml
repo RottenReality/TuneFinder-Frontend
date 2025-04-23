@@ -1,4 +1,4 @@
-name: CI
+name: CI-CD
 
 on:
   push:
@@ -327,10 +327,6 @@ jobs:
 
     steps:
       # 1. Checkout del código
-      - name: Build, Test and Publish
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
