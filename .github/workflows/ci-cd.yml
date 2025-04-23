@@ -14,10 +14,19 @@ env:
 
 jobs:
   build-test-publish:
+    outputs:
+      repo_name: ${{ steps.set-outputs.outputs.repo_name }}
+      image_tag: ${{ steps.set-outputs.outputs.image_tag }}
     name: Build, Test and Publish
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set outputs
+        id: set-outputs
+        run: |
+          echo "repo_name=tunefinder" >> "$GITHUB_OUTPUT"
+          echo "image_tag=latest" >> "$GITHUB_OUTPUT"
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
