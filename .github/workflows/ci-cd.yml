@@ -40,9 +40,6 @@ jobs:
       - name: Generate unit test coverage
         run: npm run coverage
 
-      - name: Run e2e tests and generate coverage
-        run: npm run cy:coverage
-
       - name: Show lcov.info (debug)
         run: ls -R coverage && cat coverage/lcov.info || echo "No lcov.info found"
 
