@@ -11,7 +11,7 @@
     "coverage": "vitest run --coverage",
     "smoke": "cypress run --spec ./cypress/e2e/home.cy.js",
     "cy:open": "vite dev & cypress open",
-    "cy:coverage": "start-server-and-test dev http://localhost:5173 'cypress run && nyc report --reporter=lcov'",
+    "cy:coverage": "start-server-and-test dev http://localhost:3000 'cypress run && nyc report --reporter=lcov'",
     "lint": "eslint . --ext .js,.jsx",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
