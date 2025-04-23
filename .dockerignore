@@ -1,0 +1,35 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+
+# IDE/editor configs
+*.swp
+*.swo
+*.idea
+.vscode
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# coverage
+coverage
+*.spec.*
+.nyc_output
+
+# Docs and metadata
+README.md
+LICENSE
+
+# Env files (variables se pasan por secrets o env vars en la infra)
+.env
+.env.*
