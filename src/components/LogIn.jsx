@@ -3,7 +3,7 @@ import { sha256 } from "js-sha256";
 
 const LogIn = () => {
   const [loginUrl, setLoginUrl] = useState("");
-  const redirect_uri = import.meta.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
+  const redirect_uri = process.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
 
   useEffect(() => {
     const generateCodeVerifier = () => {

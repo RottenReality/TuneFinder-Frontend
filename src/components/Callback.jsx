@@ -9,7 +9,7 @@ const Callback = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
-  const redirect_uri = import.meta.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
+  const redirect_uri = process.env.APP_BASE_URL + "/callback" || "http://localhost:5173/callback"
 
   useEffect(() => {
     if (hasFetched.current) return;
