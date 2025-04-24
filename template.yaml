@@ -122,6 +122,61 @@ Resources:
         - Key: Environment
           Value: !Ref EnvironmentName
 
+  ECSTargetGroupGreen:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub 'tg-ecs-${EnvironmentName}-green'
+      VpcId: !Ref VpcId
+      Port: 3000
+      Protocol: HTTP
+      TargetType: ip
+      HealthCheckEnabled: true
+      HealthCheckPath: /health
+      HealthCheckPort: '3000'
+      HealthCheckProtocol: HTTP
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
+      HealthCheckIntervalSeconds: 15
+      HealthCheckTimeoutSeconds: 5
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+
+  CodeDeployApplication:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ComputePlatform: ECS
+      ApplicationName: !Sub 'tunefinder-${EnvironmentName}-cd-app'
+
+  CodeDeployDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName: !Ref CodeDeployApplication
+      DeploymentGroupName: !Sub 'tunefinder-${EnvironmentName}-cd-group'
+      DeploymentConfigName: CodeDeployDefault.ECSAllAtOnce
+      ServiceRoleArn: !Ref LabRoleArn
+      DeploymentStyle:
+        DeploymentType: BLUE_GREEN
+        DeploymentOption: WITH_TRAFFIC_CONTROL
+      BlueGreenDeploymentConfiguration:
+        TerminateBlueInstancesOnDeploymentSuccess:
+          Action: TERMINATE
+          TerminationWaitTimeInMinutes: 5
+        DeploymentReadyOption:
+          ActionOnTimeout: CONTINUE_DEPLOYMENT
+          WaitTimeInMinutes: 0
+      LoadBalancerInfo:
+        TargetGroupPairInfoList:
+          - TargetGroups:
+              - Name: !Ref ECSTargetGroup
+              - Name: !Ref ECSTargetGroupGreen
+            ProdTrafficRoute:
+              ListenerArns:
+                - !Ref ALBListener
+      ECSService:
+        ClusterName: !Ref ECSCluster
+        ServiceName: !Ref ECSService
+
   # --- Definicion de Tarea ECS ---
   ECSTaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -157,6 +212,8 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       ServiceName: !Sub 'tunefinder-${EnvironmentName}-service'
+      DeploymentController:
+        Type: CODE_DEPLOY
       Cluster: !Ref ECSCluster
       TaskDefinition: !Ref ECSTaskDefinition
       DesiredCount: 1 # Numero inicial de tareas
