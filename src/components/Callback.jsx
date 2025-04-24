@@ -23,7 +23,7 @@ const Callback = () => {
 
       try {
         const body = new URLSearchParams();
-        body.append("client_id", import.meta.env.VITE_SPOTIFY_TOKEN);
+        body.append("client_id", "5c2e53056c7e4287bf2c92c8edf7a6ee");
         body.append("grant_type", "authorization_code");
         body.append("code", code);
         body.append("redirect_uri", redirect_uri);

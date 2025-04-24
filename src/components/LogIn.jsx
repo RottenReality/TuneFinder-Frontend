@@ -28,7 +28,7 @@ const LogIn = () => {
 
       localStorage.setItem("code_verifier", codeVerifier);
 
-      const CLIENT_ID = import.meta.env.VITE_SPOTIFY_TOKEN;
+      const CLIENT_ID = "5c2e53056c7e4287bf2c92c8edf7a6ee";
       const REDIRECT_URI = redirect_uri;
       const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
       const RESPONSE_TYPE = "code";
