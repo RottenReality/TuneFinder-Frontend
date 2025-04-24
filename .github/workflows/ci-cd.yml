@@ -59,6 +59,8 @@ jobs:
 
       - name: Build React App
         run: npm run build
+        env:
+          VITE_SPOTIFY_TOKEN: ${{ secrets.VITE_SPOTIFY_TOKEN }}
 
       # --- Docker steps ---
       - name: Set up QEMU
@@ -125,7 +127,6 @@ jobs:
             --template-file template.yaml \
             --stack-name tunefinder-staging-stack \
             --parameter-overrides \
-              ClientId=${{ secrets.VITE_SPOTIFY_TOKEN }} \
               EnvironmentName=staging \
               DockerImageUri=$IMAGE_URI \
               LabRoleArn=${{ secrets.LAB_ROLE_ARN }} \
@@ -260,7 +261,6 @@ jobs:
             --template-file template.yaml \
             --stack-name tunefinder-prod-stack \
             --parameter-overrides \
-              ClientId=${{ secrets.VITE_SPOTIFY_TOKEN }} \
               EnvironmentName=production \
               DockerImageUri=$IMAGE_URI \
               LabRoleArn=${{ secrets.LAB_ROLE_ARN }} \

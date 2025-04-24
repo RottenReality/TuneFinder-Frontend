@@ -4,9 +4,6 @@ Description: >
   con ALB. Usa la VPC por defecto y el LabRole existente.
 
 Parameters:
-  ClientId:
-    Type: String
-    Description: Valor secreto 1
   EnvironmentName:
     Type: String
     Description: "Nombre del entorno (ej: staging, production). Usado para nombrar recursos."
@@ -144,9 +141,6 @@ Resources:
           PortMappings:
             - ContainerPort: 3000
               Protocol: tcp
-          Environment:
-            - Name: ClientId
-              Value: !Ref ClientId
           LogConfiguration:
             LogDriver: awslogs
             Options:
