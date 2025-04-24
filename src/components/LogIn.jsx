@@ -3,7 +3,7 @@ import { sha256 } from "js-sha256";
 
 const LogIn = () => {
   const [loginUrl, setLoginUrl] = useState("");
-  const redirect_uri = "http://tunefinder-production-alb-1607191281.us-east-1.elb.amazonaws.com/" + "/callback" || "http://localhost:5173/callback"
+  const redirect_uri = "http://tunefinder-production-alb-1607191281.us-east-1.elb.amazonaws.com/" + "/callback"
 
   useEffect(() => {
     const generateCodeVerifier = () => {
