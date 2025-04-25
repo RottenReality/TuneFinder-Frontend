@@ -17,6 +17,7 @@ jobs:
     outputs:
       repo_name: ${{ steps.set-outputs.outputs.repo_name }}
       image_tag: ${{ steps.set-outputs.outputs.image_tag }}
+      image_sha: ${{ steps.set-outputs.outputs.image_sha }}
     name: Build, Test and Publish
     runs-on: ubuntu-latest
 
@@ -26,6 +27,7 @@ jobs:
         run: |
           echo "repo_name=tunefinder" >> "$GITHUB_OUTPUT"
           echo "image_tag=latest" >> "$GITHUB_OUTPUT"
+          echo "image_sha={GITHUB_SHA}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -356,3 +358,60 @@ jobs:
           echo "Running smoke tests against: $APP_BASE_URL"
           sleep 30 # Espera prudencial
           npm run smoke # Ejecutar las pruebas de humo
+
+  save-prod-sha:
+    needs: [build-test-publish, smoke-test-prod]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    environment:
+      name: production
+    steps:
+      - name: Save latest succesful SHA as env secret
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Saving SHA ${{ needs.build-test-publish.outputs.image_sha }}" to env secret.
+          gh secret set LAST_GOOD_IMAGE_SHA \
+            --env production \
+            -b"${{ needs.build-test-publish.outputs.image_sha }}"
+
+  rollback-prod:
+    needs: smoke-test-prod
+    if: failure() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Rollback to Last Known Good Image
+        run: |
+          echo "Rolling back to previous image SHA: ${{ secrets.LAST_GOOD_IMAGE_SHA }}"
+          IMAGE_URI="${{ secrets.DOCKERHUB_USERNAME }}/tunefinder:${{ secrets.LAST_GOOD_IMAGE_SHA }}"
+
+          aws cloudformation deploy \
+            --template-file template.yaml \
+            --stack-name tunefinder-prod-stack \
+            --parameter-overrides \
+              EnvironmentName=production \
+              DockerImageUri=$IMAGE_URI \
+              LabRoleArn=${{ secrets.LAB_ROLE_ARN }} \
+              VpcId=${{ secrets.VPC_ID }} \
+              SubnetIds="${{ secrets.SUBNET_IDS }}" \
+            --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+            --no-fail-on-empty-changes
+
+      - name: Force New Deployment
+        run: |
+          aws ecs update-service --cluster tunefinder-production-cluster \
+                                 --service tunefinder-production-service \
+                                 --force-new-deployment \
+                                 --region us-east-1
