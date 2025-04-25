@@ -9,7 +9,7 @@ const Callback = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
-  const redirect_uri = "http://tunefinder-production-alb-1607191281.us-east-1.elb.amazonaws.com/" + "/callback"
+  const redirect_uri = "http://tunefinder-production-alb-1607191281.us-east-1.elb.amazonaws.com/callback"
 
   useEffect(() => {
     if (hasFetched.current) return;

@@ -297,12 +297,46 @@ jobs:
   # -------------------------------------
   # Job de Actualización Servicio Producción (ECS - Forzar despliegue)
   # -------------------------------------
+
+  
   update-service-prod:
     needs: [build-test-publish, deploy-cfn-prod] # Depende de que CFN haya actualizado la Task Def de Prod
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
+      - name: Switch ALB Target Group
+        id: switch-alb
+        env:
+          AWS_REGION: us-east-1
+          ALB_LISTENER_ARN: ${{ secrets.ALB_LISTENER_ARN }}
+          TG_BLUE_ARN: ${{ secrets.TG_BLUE_ARN }}
+          TG_GREEN_ARN: ${{ secrets.TG_GREEN_ARN }}
+        run: |
+          echo "Obteniendo configuración actual del listener..."
+          CURRENT_TG=$(aws elbv2 describe-listeners \
+            --listener-arns "$ALB_LISTENER_ARN" \
+            --query 'Listeners[0].DefaultActions[0].TargetGroupArn' \
+            --output text)
+
+          echo "TG actual: $CURRENT_TG"
+
+          if [ "$CURRENT_TG" == "$TG_GREEN_ARN" ]; then
+            echo "Green está activo. Haciendo switch a Blue..."
+            NEW_TG=$TG_BLUE_ARN
+          else
+            echo "Blue está activo. Haciendo switch a Green..."
+            NEW_TG=$TG_GREEN_ARN
+          fi
+
+          echo "Cambiando default action del Listener..."
+          aws elbv2 modify-listener \
+            --listener-arn "$ALB_LISTENER_ARN" \
+            --default-actions Type=forward,TargetGroupArn="$NEW_TG"
+
+          echo "Switch completado. Listener ahora apunta a:"
+          echo "$NEW_TG"
+
       # 1. Configurar credenciales de AWS (CON SESSION TOKEN)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
