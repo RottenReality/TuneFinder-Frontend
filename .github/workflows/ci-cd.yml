@@ -387,9 +387,12 @@ jobs:
     environment:
       name: production
     steps:
+      - name: print rollback secret
+        run: |
+          echo "Valor del secreto: ${{ secrets.LAST_GOOD_IMAGE_SHA }}"
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -400,6 +403,11 @@ jobs:
 
       - name: Rollback to Last Known Good Image
         run: |
+          if [ -z "${{ secrets.LAST_GOOD_IMAGE_SHA }}" ]; then
+            echo "El secreto está vacío o no definido."
+          else
+            echo "El secreto está definido."
+          fi
           echo "Rolling back to previous image SHA: ${{ secrets.LAST_GOOD_IMAGE_SHA }}"
           IMAGE_URI="${{ secrets.DOCKERHUB_USERNAME }}/tunefinder:${{ secrets.LAST_GOOD_IMAGE_SHA }}"
 
