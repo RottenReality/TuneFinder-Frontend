@@ -372,7 +372,7 @@ jobs:
 
       - name: Save latest succesful SHA as env secret
         env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ROLLBACK_TOKEN }}
         run: |
           echo "Saving SHA ${{ needs.build-test-publish.outputs.image_sha }}" to env secret.
           gh secret set LAST_GOOD_IMAGE_SHA \
