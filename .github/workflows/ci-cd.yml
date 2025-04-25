@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "repo_name=tunefinder" >> "$GITHUB_OUTPUT"
           echo "image_tag=latest" >> "$GITHUB_OUTPUT"
-          echo "image_sha={GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+          echo "image_sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository
         uses: actions/checkout@v3
